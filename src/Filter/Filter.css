@@ -1,0 +1,9 @@
+.Filter {
+  grid-column: 3/5;
+  width: 232px;
+  height: 252px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+/*# sourceMappingURL=Filter.css.map */
