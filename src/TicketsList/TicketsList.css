@@ -1,8 +1,9 @@
 .TicketsList {
-  grid-column: 5/9;
-  width: 502px;
+  display: grid;
+  gap: 20px;
   height: 184px;
   background-color: #ddd;
+  border-radius: 5px;
 }
 
 /*# sourceMappingURL=TicketsList.css.map */

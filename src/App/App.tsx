@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Filter, Header, TicketsList } from '../router';
+import { Filter, Header, TicketsList, Sort } from '../router';
 
 import './App.css';
 
@@ -9,7 +9,10 @@ function App() {
     <div className="App">
       <Header />
       <Filter />
-      <TicketsList />
+      <div className="rightSection">
+        <Sort />
+        <TicketsList />
+      </div>
     </div>
   );
 }
