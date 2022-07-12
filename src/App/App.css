@@ -3,14 +3,13 @@
   display: grid;
   place-items: center;
   align-items: start;
-  gap: 20px;
   column-gap: 20px;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(16, 1fr);
 }
 
 .rightSection {
   display: grid;
-  grid-column: 5/12;
+  grid-column: 7/15;
   gap: 20px;
   width: 100%;
 }

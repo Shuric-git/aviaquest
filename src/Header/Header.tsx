@@ -4,7 +4,7 @@ import './Header.css';
 
 export const Header = () => {
   return (
-    <header className="App-header">
+    <header className="header">
       <img src={Logo} alt="логотип Aviasales" />
     </header>
   );
