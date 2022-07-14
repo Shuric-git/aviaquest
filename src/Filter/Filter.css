@@ -15,6 +15,10 @@ ul {
   background-color: #fff;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
 }
+.filter__list {
+  display: grid;
+  gap: 20px;
+}
 .filter__checkboxWrapper {
   display: flex;
 }
@@ -26,13 +30,14 @@ ul {
   content: "";
   position: absolute;
   transform: rotate(50deg);
-  width: 7px;
-  height: 11px;
-  left: 27px;
-  border-right: 2px solid #9ABBCE;
-  border-bottom: 2px solid #9ABBCE;
+  width: 5px;
+  height: 9px;
+  left: 28px;
+  margin-top: 3px;
+  border-right: 2px solid #2196F3;
+  border-bottom: 2px solid #2196F3;
 }
-.filter__checkboxWrapper > label > span::before {
+.filter__checkboxWrapper > label::before {
   content: " ";
   position: absolute;
   left: 20px;
@@ -40,6 +45,9 @@ ul {
   height: 20px;
   border: 1px solid #9ABBCE;
   border-radius: 2px;
+}
+.filter__checkboxWrapper > input:checked + label::before {
+  border-color: #2196F3;
 }
 .filter__title {
   font-size: 12px;

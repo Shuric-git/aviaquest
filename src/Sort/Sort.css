@@ -1,12 +1,11 @@
-.SortWrapper {
+.sort__list {
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 50px;
 }
-
-.sortBtn {
-  width: 34%;
+.sort__btn {
+  width: 100%;
+  min-height: 50px;
   background-color: #fff;
   border: 1px solid #DFE5EC;
   color: #4A4A4A;
@@ -15,10 +14,10 @@
   line-height: 20px;
   letter-spacing: 0.5px;
 }
-.sortBtn:first-child {
+.sort__btn:first-child {
   border-radius: 5px 0 0 5px;
 }
-.sortBtn:last-child {
+.sort__btn:last-child {
   border-radius: 0 5px 5px 0;
 }
 
