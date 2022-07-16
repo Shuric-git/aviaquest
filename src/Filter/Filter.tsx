@@ -7,12 +7,14 @@ import './Filter.css';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const check = useSelector((state: []) => state);
+  const check = useSelector((state: boolean[]) => {
+    // console.log(state);
+    return state;
+  });
   const toggleCheck = (index: number) => {
     dispatch({ type: 'clickCheck', payload: index });
   };
 
-  console.log(check);
   return (
     <>
       <div className="filter">
