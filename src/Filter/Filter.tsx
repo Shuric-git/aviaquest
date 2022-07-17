@@ -1,4 +1,3 @@
-// import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { filterItems } from '../utils/filterItems';
@@ -7,9 +6,8 @@ import './Filter.css';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const check = useSelector((state: boolean[]) => {
-    // console.log(state);
-    return state;
+  const check = useSelector((state: { checkboxReducer: { checkboxes: boolean[] } }) => {
+    return state.checkboxReducer.checkboxes;
   });
   const toggleCheck = (index: number) => {
     dispatch({ type: 'clickCheck', payload: index });
@@ -28,7 +26,9 @@ export const Filter = () => {
                     id={`custom-checkbox-${index}`}
                     type="checkbox"
                     checked={check[index]}
-                    onChange={() => toggleCheck(index)}
+                    onChange={() => {
+                      toggleCheck(index);
+                    }}
                   />
                   <label htmlFor={`custom-checkbox-${index}`}>
                     <span>{name}</span>
