@@ -7,7 +7,7 @@ export interface ICheckboxes {
   checkboxes: boolean[];
 }
 
-const initialState = {
+const initialState: ICheckboxes = {
   checkboxes: new Array(filterItems.length).fill(false),
 };
 
@@ -15,22 +15,20 @@ export const checkboxesSlice = createSlice({
   name: 'checkboxes',
   initialState,
   reducers: {
-    check: (state) => {
-      if (state.checkboxes[0]) {
-        state = initialState;
-      }
-      if (!state.checkboxes[0]) {
-        return {
-          ...state,
-          checkboxes: defaultState.checkboxes.map((item) => !item),
-        };
-      }
-      return {
-        ...state,
-        checkboxes: state.checkboxes.map((item, index) => {
-          return index === action.payload ? !item : item;
-        }),
-      };
-    }
-  }
+    uncheckAll: (state) => {
+      state.checkboxes = initialState.checkboxes;
+    },
+    checkAll: (state) => {
+      state.checkboxes = initialState.checkboxes.map((item: boolean) => !item);
+    },
+    check: (state, action: PayloadAction<number>) => {
+      state.checkboxes = state.checkboxes.map((item, index) => {
+        return index === action.payload ? !item : item;
+      });
+    },
+  },
 });
+
+export const { check } = checkboxesSlice.actions;
+
+export default checkboxesSlice.reducer;

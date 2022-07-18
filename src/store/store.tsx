@@ -1,12 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { checkboxReducer } from './checkboxReducer';
+import checkboxesReducer from '../features/checkboxes';
 
-export const store = configureStore({
-  reducer: {
-    checkbox: checkboxReducer,
-  },
+const rootReducer = combineReducers({
+  checkboxesReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+  });
+};
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

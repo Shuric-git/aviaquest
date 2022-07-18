@@ -1,16 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import { filterItems } from '../utils/filterItems';
-
+import { checkboxesSlice } from '../features/checkboxes';
 import './Filter.css';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const Filter = () => {
-  const dispatch = useDispatch();
-  const check = useSelector((state: { checkboxReducer: { checkboxes: boolean[] } }) => {
-    return state.checkboxReducer.checkboxes;
-  });
-  const toggleCheck = (index: number) => {
-    dispatch({ type: 'clickCheck', payload: index });
+  const { checkboxes } = useAppSelector((state) => state.checkboxesReducer);
+  const { checkAll, uncheckAll, check } = checkboxesSlice.actions;
+  const dispatch = useAppDispatch();
+  const toggleCheck: (index: number) => void = (index) => {
+    if (index === 0 && checkboxes[0]) {
+      dispatch(uncheckAll());
+      return;
+    }
+    if (index === 0 && !checkboxes[0]) {
+      dispatch(checkAll());
+      return;
+    }
+    dispatch(check(index));
   };
 
   return (
@@ -25,7 +31,7 @@ export const Filter = () => {
                   <input
                     id={`custom-checkbox-${index}`}
                     type="checkbox"
-                    checked={check[index]}
+                    checked={checkboxes[index]}
                     onChange={() => {
                       toggleCheck(index);
                     }}
