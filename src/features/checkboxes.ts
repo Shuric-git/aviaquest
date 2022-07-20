@@ -26,9 +26,13 @@ export const checkboxesSlice = createSlice({
         return index === action.payload ? !item : item;
       });
     },
+    autoCheck: (state) => {
+      state.checkboxes[0] = true;
+    },
+    autoUncheck: (state) => {
+      state.checkboxes[0] = false;
+    },
   },
 });
-
-export const { check } = checkboxesSlice.actions;
 
 export default checkboxesSlice.reducer;

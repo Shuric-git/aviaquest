@@ -12,6 +12,7 @@ function App() {
       <div className="rightSection">
         <Sort />
         <TicketsList />
+        {/*<ShowMoreButton />*/}
       </div>
     </div>
   );
