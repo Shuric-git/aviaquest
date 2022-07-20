@@ -13,7 +13,7 @@
     "@types/node": "^16.11.38",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
-    "antd": "^4.21.4",
+    "antd": "^4.21.7",
     "lodash.debounce": "^4.0.8",
     "lodash.defer": "^4.1.0",
     "react": "^18.1.0",

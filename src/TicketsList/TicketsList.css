@@ -2,6 +2,7 @@
   display: grid;
   gap: 20px;
   height: 184px;
+  padding-bottom: 25px;
   border-radius: 5px;
 }
 
@@ -15,6 +16,20 @@
   letter-spacing: 0.5px;
   border-width: 0px;
   border-radius: 5px;
+}
+
+.ant-spin, .ant-spin-spinning {
+  color: blue;
+  align-self: center;
+  text-align: center;
+  align-self: center;
+  font-size: 24px;
+  color: #2196F3;
+}
+
+.anticon svg {
+  width: 50px;
+  height: 50px;
 }
 
 /*# sourceMappingURL=TicketsList.css.map */

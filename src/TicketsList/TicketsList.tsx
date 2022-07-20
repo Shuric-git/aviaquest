@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
 import './TicketsList.css';
@@ -16,7 +18,7 @@ export const TicketsList = () => {
       dispatch(shiftTickets());
     });
   }, []);
-  console.log(ticketsArr);
+  // console.log(ticketsArr);
   const showMoreHandler = () => {
     dispatch(shiftTickets());
   };
@@ -48,7 +50,15 @@ export const TicketsList = () => {
     }
   }
 
-  const tickets = ticketsArr.map((item: ITicket) => {
+  const antIcon = <LoadingOutlined className="spinner" spin />;
+  let sorted = [...ticketsArr];
+  console.log(sorted);
+  sorted.sort((a: any, b: any): number => {
+    if (a.price < b.price) {
+      return -1;
+    }
+  });
+  const tickets = sorted.map((item: ITicket) => {
     const _TO = item.segments[0];
     const _FROM = item.segments[1];
     const _TOStartHour = new Date(_TO.date).getHours();
@@ -117,7 +127,7 @@ export const TicketsList = () => {
   return (
     <>
       <div className="TicketsList">
-        {ticketsArr.length ? tickets : 'loading'}
+        {ticketsArr.length ? tickets : <Spin indicator={antIcon} />}
         <button className="showMore" onClick={showMoreHandler}>
           Показать еще 5 билетов!
         </button>

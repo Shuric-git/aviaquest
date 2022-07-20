@@ -12,7 +12,6 @@ export const ticketsSlice = createSlice({
   reducers: {
     loadTickets: (state, action: PayloadAction<any>) => {
       state.loadedTickets.push(...action.payload.tickets);
-      // console.log(state);
     },
     shiftTickets: (state) => {
       state.showedTickets.push(...state.loadedTickets.splice(0, 5));
