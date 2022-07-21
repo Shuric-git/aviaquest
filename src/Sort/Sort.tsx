@@ -1,6 +1,10 @@
 import './Sort.css';
 import { useState } from 'react';
 
+import { useAppDispatch } from '../hooks';
+// import { ticketsSlice } from '../features/ticketsReducer';
+import { sortByPrice, sortByDuration } from '../features/actionCreators';
+
 export const Sort = () => {
   const sortBtns = [
     {
@@ -22,6 +26,9 @@ export const Sort = () => {
 
   const [sort, setSort] = useState(sortBtns);
 
+  // const { sortPrice, sortDuration } = ticketsSlice.actions;
+  const dispatch = useAppDispatch();
+
   const sortTickets = (id: number) => {
     let sortedArr = sort.map((item) => {
       if (item.id === id) {
@@ -31,6 +38,14 @@ export const Sort = () => {
       }
       return item;
     });
+    if (id === 1) {
+      console.log(id);
+      dispatch(sortByPrice());
+    }
+    if (id === 2) {
+      console.log(id);
+      dispatch(sortByDuration());
+    }
     setSort(sortedArr);
   };
 
@@ -45,9 +60,6 @@ export const Sort = () => {
           );
         })}
       </ul>
-      {/*<button className="sortBtn active">САМЫЙ ДЕШЕВЫЙ</button>*/}
-      {/*<button className="sortBtn">САМЫЙ БЫСТРЫЙ</button>*/}
-      {/*<button className="sortBtn">ОПТИМАЛЬНЫЙ</button>*/}
     </div>
   );
 };

@@ -3,22 +3,41 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { fetchTickets, sortByPrice } from "../features/actionCreators";
 import './TicketsList.css';
 import { ticketsSlice } from '../features/ticketsReducer';
-import { TicketsDB } from '../ticketsDB/ticketsDB';
 import { ITicket } from '../interface';
 
+const testObj = {
+  sortByPrice: true,
+  sortByDuration: false,
+  sortByOverall: false,
+};
+
+for (let key in testObj) {
+  testObj[key] = true;
+  if (key === 'sortByPrice') {
+    testObj[key] = false;
+  }
+  console.log(testObj[key]);
+}
+
 export const TicketsList = () => {
-  const ticketsArr = useAppSelector((state) => state.ticketsReducer.showedTickets);
-  const { loadTickets, shiftTickets } = ticketsSlice.actions;
-  const dispatch = useAppDispatch();
+  const { showedTickets, sort } = useAppSelector((state) => state.ticketsReducer);
   useEffect(() => {
-    TicketsDB.getTickets().then((response) => {
-      dispatch(loadTickets(response));
-      dispatch(shiftTickets());
-    });
+    dispatch(fetchTickets());
   }, []);
-  // console.log(ticketsArr);
+  useEffect(() => {
+    if (sort.sortByPrice) {
+      dispatch(ticketsSortByPrice());
+    }
+    if (sort.sortByDuration) {
+      dispatch(ticketsSortByDuration());
+    }
+  });
+  const { shiftTickets, ticketsSortByPrice, ticketsSortByDuration } = ticketsSlice.actions;
+  const dispatch = useAppDispatch();
+
   const showMoreHandler = () => {
     dispatch(shiftTickets());
   };
@@ -51,14 +70,8 @@ export const TicketsList = () => {
   }
 
   const antIcon = <LoadingOutlined className="spinner" spin />;
-  let sorted = [...ticketsArr];
-  console.log(sorted);
-  sorted.sort((a: any, b: any): number => {
-    if (a.price < b.price) {
-      return -1;
-    }
-  });
-  const tickets = sorted.map((item: ITicket) => {
+
+  const ticketsUI = showedTickets.map((item: ITicket) => {
     const _TO = item.segments[0];
     const _FROM = item.segments[1];
     const _TOStartHour = new Date(_TO.date).getHours();
@@ -127,7 +140,7 @@ export const TicketsList = () => {
   return (
     <>
       <div className="TicketsList">
-        {ticketsArr.length ? tickets : <Spin indicator={antIcon} />}
+        {showedTickets.length ? ticketsUI : <Spin indicator={antIcon} />}
         <button className="showMore" onClick={showMoreHandler}>
           Показать еще 5 билетов!
         </button>
