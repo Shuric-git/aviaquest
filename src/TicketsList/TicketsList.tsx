@@ -3,24 +3,10 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchTickets, sortByPrice } from "../features/actionCreators";
+import { fetchTickets } from '../features/actionCreators';
 import './TicketsList.css';
 import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
-
-const testObj = {
-  sortByPrice: true,
-  sortByDuration: false,
-  sortByOverall: false,
-};
-
-for (let key in testObj) {
-  testObj[key] = true;
-  if (key === 'sortByPrice') {
-    testObj[key] = false;
-  }
-  console.log(testObj[key]);
-}
 
 export const TicketsList = () => {
   const { showedTickets, sort } = useAppSelector((state) => state.ticketsReducer);
@@ -37,6 +23,7 @@ export const TicketsList = () => {
   });
   const { shiftTickets, ticketsSortByPrice, ticketsSortByDuration } = ticketsSlice.actions;
   const dispatch = useAppDispatch();
+  console.log(showedTickets);
 
   const showMoreHandler = () => {
     dispatch(shiftTickets());

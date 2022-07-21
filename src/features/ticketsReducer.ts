@@ -51,15 +51,23 @@ export const ticketsSlice = createSlice({
         return 1;
       });
     },
-    priceState(state) {
-      state.sort.sortByPrice = true;
-      state.sort.sortByDuration = false;
-      state.sort.sortByOverall = false;
+    sortState(state, action: PayloadAction<string>) {
+      for (let key of Object.keys(state.sort)) {
+        state.sort[key] = false;
+        if (key === action.payload) {
+          state.sort[key] = true;
+        }
+      }
     },
-    durationState(state) {
-      state.sort.sortByDuration = true;
-      state.sort.sortByPrice = false;
-      state.sort.sortByOverall = false;
+    filterByStops(state, action: PayloadAction<boolean[]>) {
+      let forFilter = [...state.showedTickets];
+      state.showedTickets = [];
+      action.payload.forEach((item: boolean, index) => {
+        if (index > 1 && item) {
+          state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index));
+        }
+      });
+      // state.showedTickets = state.showedTickets.filter((item: ITicket) => item.segments[0].stops.length === 1);
     },
   },
 });

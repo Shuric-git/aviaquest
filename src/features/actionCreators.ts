@@ -27,12 +27,12 @@ export const fetchTickets = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const sortByPrice = () => (dispatch: AppDispatch) => {
-  dispatch(ticketsSlice.actions.priceState());
+export const sortByPrice = (id: string) => (dispatch: AppDispatch) => {
+  dispatch(ticketsSlice.actions.sortState(id));
   dispatch(ticketsSlice.actions.ticketsSortByPrice());
 };
 
-export const sortByDuration = () => (dispatch: AppDispatch) => {
-  dispatch(ticketsSlice.actions.durationState());
+export const sortByDuration = (id: string) => (dispatch: AppDispatch) => {
+  dispatch(ticketsSlice.actions.sortState(id));
   dispatch(ticketsSlice.actions.ticketsSortByDuration());
 };

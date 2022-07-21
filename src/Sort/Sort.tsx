@@ -8,17 +8,17 @@ import { sortByPrice, sortByDuration } from '../features/actionCreators';
 export const Sort = () => {
   const sortBtns = [
     {
-      id: 1,
+      id: 'sortByPrice',
       className: 'sort__btn active',
       name: 'САМЫЙ ДЕШЁВЫЙ',
     },
     {
-      id: 2,
+      id: 'sortByDuration',
       className: 'sort__btn',
       name: 'САМЫЙ БЫСТРЫЙ',
     },
     {
-      id: 3,
+      id: 'sortByOverall',
       className: 'sort__btn',
       name: 'ОПТИМАЛЬНЫЙ',
     },
@@ -29,7 +29,7 @@ export const Sort = () => {
   // const { sortPrice, sortDuration } = ticketsSlice.actions;
   const dispatch = useAppDispatch();
 
-  const sortTickets = (id: number) => {
+  const sortTickets = (id: string) => {
     let sortedArr = sort.map((item) => {
       if (item.id === id) {
         item.className = 'sort__btn active';
@@ -38,13 +38,13 @@ export const Sort = () => {
       }
       return item;
     });
-    if (id === 1) {
+    if (id === 'sortByPrice') {
       console.log(id);
-      dispatch(sortByPrice());
+      dispatch(sortByPrice(id));
     }
-    if (id === 2) {
+    if (id === 'sortByDuration') {
       console.log(id);
-      dispatch(sortByDuration());
+      dispatch(sortByDuration(id));
     }
     setSort(sortedArr);
   };

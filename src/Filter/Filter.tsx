@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 
 import { filterItems } from '../utils/filterItems';
 import { checkboxesSlice } from '../features/checkboxes';
+import { ticketsSlice } from '../features/ticketsReducer';
 import './Filter.css';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const Filter = () => {
   const { checkboxes } = useAppSelector((state) => state.checkboxesReducer);
   const { checkAll, uncheckAll, check, autoCheck, autoUncheck } = checkboxesSlice.actions;
+  const { filterByStops } = ticketsSlice.actions;
   const dispatch = useAppDispatch();
   useEffect(() => {
     let checky = [...checkboxes];
@@ -18,6 +20,7 @@ export const Filter = () => {
     if (checky.includes(false)) {
       dispatch(autoUncheck());
     }
+    dispatch(filterByStops(checky));
   });
   const toggleCheck: (index: number) => void = (index) => {
     if (index === 0 && checkboxes[0]) {
@@ -29,6 +32,7 @@ export const Filter = () => {
       return;
     }
     dispatch(check(index));
+    console.log(checkboxes);
   };
 
   return (
