@@ -2,14 +2,16 @@ import { useEffect } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 
+// import { checkboxesSlice } from '../features/checkboxesReducer';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchTickets } from '../features/actionCreators';
+import { fetchTickets, func } from '../features/actionCreators';
 import './TicketsList.css';
 import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
 
 export const TicketsList = () => {
   const { showedTickets, sort } = useAppSelector((state) => state.ticketsReducer);
+  // const { filterByStopsHandler } = checkboxesSlice.actions;
   useEffect(() => {
     dispatch(fetchTickets());
   }, []);
@@ -20,10 +22,10 @@ export const TicketsList = () => {
     if (sort.sortByDuration) {
       dispatch(ticketsSortByDuration());
     }
+    dispatch(func());
   });
   const { shiftTickets, ticketsSortByPrice, ticketsSortByDuration } = ticketsSlice.actions;
   const dispatch = useAppDispatch();
-  console.log(showedTickets);
 
   const showMoreHandler = () => {
     dispatch(shiftTickets());

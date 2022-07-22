@@ -36,3 +36,8 @@ export const sortByDuration = (id: string) => (dispatch: AppDispatch) => {
   dispatch(ticketsSlice.actions.sortState(id));
   dispatch(ticketsSlice.actions.ticketsSortByDuration());
 };
+export const func = () => (dispatch: AppDispatch) => {
+  return (state: any) => {
+    dispatch(ticketsSlice.actions.filterByStops(state.checkboxes));
+  };
+};

@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import checkboxesReducer from '../features/checkboxes';
+import checkboxesReducer from '../features/checkboxesReducer';
 import ticketsReducer from '../features/ticketsReducer';
 
 const rootReducer = combineReducers({

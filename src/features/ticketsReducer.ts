@@ -63,8 +63,9 @@ export const ticketsSlice = createSlice({
       let forFilter = [...state.showedTickets];
       state.showedTickets = [];
       action.payload.forEach((item: boolean, index) => {
-        if (index > 1 && item) {
-          state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index));
+        if (item) {
+          console.log(index);
+          state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index - 1));
         }
       });
       // state.showedTickets = state.showedTickets.filter((item: ITicket) => item.segments[0].stops.length === 1);
