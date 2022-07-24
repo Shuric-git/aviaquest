@@ -4,11 +4,13 @@ import { filterItems } from '../utils/filterItems';
 import { checkboxesSlice } from '../features/checkboxesReducer';
 import './Filter.css';
 import { useAppDispatch, useAppSelector } from '../hooks';
+// import { ticketsSlice } from '../features/ticketsReducer';
 import { func } from '../features/actionCreators';
 
 export const Filter = () => {
   const { checkboxes } = useAppSelector((state) => state.checkboxesReducer);
   const { checkAll, uncheckAll, check, autoCheck, autoUncheck } = checkboxesSlice.actions;
+  // const { filterByStops } = ticketsSlice.actions;
   const dispatch = useAppDispatch();
   useEffect(() => {
     let checky = [...checkboxes];

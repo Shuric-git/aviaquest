@@ -5,7 +5,9 @@ import { ITicket } from '../interface';
 
 const initialState: any = {
   loadedTickets: [],
+  addedTickets: [],
   showedTickets: [],
+  stopFetching: false,
   sort: {
     sortByPrice: true,
     sortByDuration: false,
@@ -20,8 +22,8 @@ export const ticketsSlice = createSlice({
     loadTickets: (state, action: PayloadAction<any>) => {
       state.loadedTickets.push(...action.payload.tickets);
     },
-    shiftTickets: (state) => {
-      state.showedTickets.push(...state.loadedTickets.splice(0, 5));
+    pushTickets: (state) => {
+      state.addedTickets.push(...state.loadedTickets.splice(0, 5));
     },
     ticketsFetching(state: any): void {
       state.isLoading = true;
@@ -60,15 +62,19 @@ export const ticketsSlice = createSlice({
       }
     },
     filterByStops(state, action: PayloadAction<boolean[]>) {
-      let forFilter = [...state.showedTickets];
+      let forFilter = [...state.loadedTickets];
       state.showedTickets = [];
-      action.payload.forEach((item: boolean, index) => {
-        if (item) {
-          console.log(index);
-          state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index - 1));
-        }
-      });
+      if (forFilter) {
+        action.payload.forEach((item: boolean, index) => {
+          if (item) {
+            state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index - 1));
+          }
+        });
+      }
       // state.showedTickets = state.showedTickets.filter((item: ITicket) => item.segments[0].stops.length === 1);
+    },
+    stopFetching(state) {
+      state.stopFetching = true;
     },
   },
 });
