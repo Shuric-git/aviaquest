@@ -1,39 +1,30 @@
 import { useEffect, useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 import { store } from '../index';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchTickets, func } from '../features/actionCreators';
+import { func } from '../features/actionCreators';
 import './TicketsList.css';
 import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
+import { ticketsAPI } from '../ticketsDB/ticketsDB';
 
 export const TicketsList = () => {
   const { loadedTickets, showedTickets } = useAppSelector((state) => state.ticketsReducer);
   const { sort } = useAppSelector((state) => state.sortReducer);
   const [showedTicketsLimit, setShoewdTicketsLimit] = useState<number>(5);
-  const { ticketsSortByPrice, ticketsSortByDuration } = ticketsSlice.actions;
-  // async function db() {
-  // console.log(ticketsAPI.useFetchSearchIdQuery(''));
-  // const { data: ticketsData } = ticketsAPI.useFetchSearchIdQuery('');
-  // const { data: ticketsData } = await ticketsAPI.useFetchAllTicketsQuery(idFetching ? skipToken : fetchedId.searchId);
-  // console.log(ticketsData);
-  // return ticketsData ? loadTickets(ticketsData) : null;
-  // }
+  const { ticketsSortByPrice, ticketsSortByDuration, loadTickets, stopFetching } = ticketsSlice.actions;
+  const { data: ticketsData } = ticketsAPI.useFetchAllTicketsQuery(
+    store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken,
+    { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
+  );
+
   useEffect(() => {
-    const storedId = store.getState().ticketsReducer.searchIdStore;
-    storedId && dispatch(fetchTickets(storedId));
-    // const timerId = setInterval(() => {
-    //   if (store.getState().ticketsReducer.stopFetching) {
-    //     clearInterval(timerId);
-    //   }
-    //   dispatch(fetchTickets(storedId));
-    // }, 300);
-    // return () => {
-    //   clearInterval(timerId);
-    // };
-  }, [store.getState().ticketsReducer.searchIdStore]);
+    ticketsData && dispatch(loadTickets(ticketsData));
+    ticketsData && ticketsData.stop && dispatch(stopFetching());
+  }, [ticketsData]);
   useEffect(() => {
     if (sort.sortByPrice) {
       dispatch(ticketsSortByPrice());
@@ -46,7 +37,7 @@ export const TicketsList = () => {
     dispatch(func());
   }, [loadedTickets]);
   const dispatch = useAppDispatch();
-  // console.log(store.getState().ticketsReducer);
+
   const showMoreHandler = () => {
     setShoewdTicketsLimit((prevState) => prevState + 5);
     dispatch(func());

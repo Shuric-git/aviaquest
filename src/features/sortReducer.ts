@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-// import { store } from '../index';
-// import { ITicket } from '../interface';
-
 const initialState: any = {
   sort: {
     sortByPrice: true,

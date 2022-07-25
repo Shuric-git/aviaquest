@@ -16,6 +16,7 @@
     "@types/react-redux": "^7.1.24",
     "antd": "^4.21.7",
     "axios": "^0.27.2",
+    "classnames": "^2.3.1",
     "lodash.debounce": "^4.0.8",
     "lodash.defer": "^4.1.0",
     "react": "^18.1.0",
