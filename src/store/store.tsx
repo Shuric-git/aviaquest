@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import checkboxesReducer from '../features/checkboxesReducer';
 import ticketsReducer from '../features/ticketsReducer';
+import sortReducer from '../features/sortReducer';
 // import { ticketsAPI } from '../ticketsDB/ticketsDB';
 
 const rootReducer = combineReducers({
   checkboxesReducer,
   ticketsReducer,
+  sortReducer,
   // [ticketsAPI.reducerPath]: ticketsAPI.reducer,
 });
 

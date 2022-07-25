@@ -1,5 +1,21 @@
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-// import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+export const searchIDAPI = createApi({
+  reducerPath: 'searchIDAPI',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://aviasales-test-api.kata.academy' }),
+  endpoints: (build) => ({
+    fetchSearchId: build.query({
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        const getSearchId: any = await fetchWithBQ('/search');
+        if (getSearchId.error) return { error: getSearchId.error as FetchBaseQueryError };
+        const searchId = getSearchId.data.searchId;
+        const tickets = await fetchWithBQ(`/tickets?searchId=${searchId}`);
+        return tickets.data ? { data: tickets.data } : { error: tickets.error };
+      },
+    }),
+  }),
+});
 
 // export const ticketsAPI = createApi({
 //   reducerPath: 'ticketsAPI',

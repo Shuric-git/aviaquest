@@ -7,12 +7,13 @@ const initialState: any = {
   loadedTickets: [],
   addedTickets: [],
   showedTickets: [],
+  searchIdStore: '',
   stopFetching: false,
-  sort: {
-    sortByPrice: true,
-    sortByDuration: false,
-    sortByOverall: false,
-  },
+  // sort: {
+  //   sortByPrice: true,
+  //   sortByDuration: false,
+  //   sortByOverall: false,
+  // },
 };
 
 export const ticketsSlice = createSlice({
@@ -53,14 +54,14 @@ export const ticketsSlice = createSlice({
         return 1;
       });
     },
-    sortState(state, action: PayloadAction<string>) {
-      for (let key of Object.keys(state.sort)) {
-        state.sort[key] = false;
-        if (key === action.payload) {
-          state.sort[key] = true;
-        }
-      }
-    },
+    // sortState(state, action: PayloadAction<string>) {
+    //   for (let key of Object.keys(state.sort)) {
+    //     state.sort[key] = false;
+    //     if (key === action.payload) {
+    //       state.sort[key] = true;
+    //     }
+    //   }
+    // },
     filterByStops(state, action: PayloadAction<boolean[]>) {
       let forFilter = [...state.loadedTickets];
       state.showedTickets = [];
@@ -75,6 +76,9 @@ export const ticketsSlice = createSlice({
     },
     stopFetching(state) {
       state.stopFetching = true;
+    },
+    setSearchId(state, action: PayloadAction<string>) {
+      state.searchIdStore = action.payload;
     },
   },
 });

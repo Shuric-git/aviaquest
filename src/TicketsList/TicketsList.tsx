@@ -10,10 +10,10 @@ import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
 
 export const TicketsList = () => {
-  const { loadedTickets, showedTickets, sort } = useAppSelector((state) => state.ticketsReducer);
+  const { loadedTickets, showedTickets } = useAppSelector((state) => state.ticketsReducer);
+  const { sort } = useAppSelector((state) => state.sortReducer);
   const [showedTicketsLimit, setShoewdTicketsLimit] = useState<number>(5);
   const { ticketsSortByPrice, ticketsSortByDuration } = ticketsSlice.actions;
-  const [searchId, setSearchId] = useState('');
   // async function db() {
   // console.log(ticketsAPI.useFetchSearchIdQuery(''));
   // const { data: ticketsData } = ticketsAPI.useFetchSearchIdQuery('');
@@ -21,41 +21,19 @@ export const TicketsList = () => {
   // console.log(ticketsData);
   // return ticketsData ? loadTickets(ticketsData) : null;
   // }
-
-  // export const fetchTickets = () => async (dispatch: AppDispatch) => {
-  //   try {
-  //     dispatch(ticketsSlice.actions.ticketsFetching());
-  //     const response = await axios.get(`${TICKETS_URL}?searchId=${await getSearchId()}`);
-  //     dispatch(ticketsSlice.actions.ticketsFetchingSuccess(response.data.tickets));
-  //     dispatch(ticketsSlice.actions.pushTickets());
-  //   } catch (e: any) {
-  //     dispatch(ticketsSlice.actions.ticketsFetchingSuccess(e.message));
-  //   }
-  // };
-  // const memoizedValue = useMemo(() => getSearchId().then((item) => item), []);
-  // console.log(memoizedValue);
   useEffect(() => {
-    // getSearchId().then((item) => setSearchId(item));
-    fetch('https://aviasales-test-api.kata.academy/search')
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log('res:', res);
-        setSearchId(res.searchId);
-      });
-  }, []);
-  useEffect(() => {
-    // console.log(searchId);
-    searchId && dispatch(fetchTickets(searchId));
-    //   const timerId = setInterval(() => {
-    //     dispatch(fetchTickets(searchId));
-    //     if (store.getState().ticketsReducer.stopFetching()) {
-    //       clearInterval(timerId);
-    //     }
-    //   }, 300);
-    //   return () => {
+    const storedId = store.getState().ticketsReducer.searchIdStore;
+    storedId && dispatch(fetchTickets(storedId));
+    // const timerId = setInterval(() => {
+    //   if (store.getState().ticketsReducer.stopFetching) {
     //     clearInterval(timerId);
-    //   };
-  }, [searchId]);
+    //   }
+    //   dispatch(fetchTickets(storedId));
+    // }, 300);
+    // return () => {
+    //   clearInterval(timerId);
+    // };
+  }, [store.getState().ticketsReducer.searchIdStore]);
   useEffect(() => {
     if (sort.sortByPrice) {
       dispatch(ticketsSortByPrice());
@@ -68,7 +46,7 @@ export const TicketsList = () => {
     dispatch(func());
   }, [loadedTickets]);
   const dispatch = useAppDispatch();
-  console.log(store.getState().ticketsReducer);
+  // console.log(store.getState().ticketsReducer);
   const showMoreHandler = () => {
     setShoewdTicketsLimit((prevState) => prevState + 5);
     dispatch(func());
