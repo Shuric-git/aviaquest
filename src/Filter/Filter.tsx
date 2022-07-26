@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { filterItems } from '../utils/filterItems';
 import { checkboxesSlice } from '../features/checkboxesReducer';
-import './Filter.css';
+import './Filter.scss';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { func } from '../features/actionCreators';
 

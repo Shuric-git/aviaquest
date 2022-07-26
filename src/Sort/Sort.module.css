@@ -1,0 +1,30 @@
+.sort__list {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.sort__btn {
+  width: 100%;
+  min-height: 50px;
+  background-color: #fff;
+  border: 1px solid #DFE5EC;
+  color: #4A4A4A;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+}
+.sort__btn:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.sort__btn:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.active {
+  color: #fff;
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+
+/*# sourceMappingURL=Sort.module.css.map */

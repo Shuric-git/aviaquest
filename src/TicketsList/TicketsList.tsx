@@ -6,10 +6,11 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { store } from '../index';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { func } from '../features/actionCreators';
-import './TicketsList.css';
 import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
 import { ticketsAPI } from '../ticketsDB/ticketsDB';
+
+import classes from './TicketsList.module.scss';
 
 export const TicketsList = () => {
   const { loadedTickets, showedTickets } = useAppSelector((state) => state.ticketsReducer);
@@ -76,7 +77,7 @@ export const TicketsList = () => {
     }
   }
 
-  const antIcon = <LoadingOutlined className="spinner" spin />;
+  const antIcon = <LoadingOutlined className={classes.spinner} spin />;
 
   const ticketsUI = limiter(showedTicketsLimit).map((item: ITicket) => {
     const _TO = item.segments[0];
@@ -96,21 +97,21 @@ export const TicketsList = () => {
     const _FROMDestinationMinutes = new Date(_FROMDestinationTime).getMinutes();
 
     return (
-      <div key={Date.now() + Math.random() * 1000000} className="ticket">
-        <div className="ticket__top">
-          <span className="ticket__top__price">{`${priceBeautyfier(item.price)} Р`}</span>
-          <div className="ticket__top__logo"></div>
+      <div key={Date.now() + Math.random() * 1000000} className={classes.ticket}>
+        <div className={classes['ticket__top']}>
+          <span className={classes['ticket__top__price']}>{`${priceBeautyfier(item.price)} Р`}</span>
+          <div className={classes['ticket__top__logo']}></div>
         </div>
-        <div className="ticket__info">
-          <div className="ticket__info__chunk">
+        <div className={classes['ticket__info']}>
+          <div className={classes['ticket__info__chunk']}>
             <span>{`${_TO.origin} - ${_TO.destination}`}</span>
             <span>{`${_TOStartHour}:${_TOStartMinutes} - ${_TODestinationHour}:${_TODestinationMinutes}`}</span>
           </div>
-          <div className="ticket__info__chunk">
+          <div className={classes['ticket__info__chunk']}>
             <span>В ПУТИ</span>
             <span>{getTimeFromMins(_TO.duration)}</span>
           </div>
-          <div className="ticket__info__chunk">
+          <div className={classes['ticket__info__chunk']}>
             <span>{stopsCounter(_TO.stops.length)}</span>
             <span>
               {_TO.stops.map((item, index) => {
@@ -121,15 +122,15 @@ export const TicketsList = () => {
               })}
             </span>
           </div>
-          <div className="ticket__info__chunk">
+          <div className={classes['ticket__info__chunk']}>
             <span>{`${_FROM.origin} - ${_FROM.destination}`}</span>
             <span>{`${_FROMStartHour}:${_FROMStartMinutes} - ${_FROMDestinationHour}:${_FROMDestinationMinutes}`}</span>
           </div>
-          <div className="ticket__info__chunk">
+          <div className={classes['ticket__info__chunk']}>
             <span>В ПУТИ</span>
             <span>{getTimeFromMins(_FROM.duration)}</span>
           </div>
-          <div className="ticket__info__chunk">
+          <div className={classes['ticket__info__chunk']}>
             <span>{stopsCounter(_FROM.stops.length)}</span>
             <span>
               {_FROM.stops.map((item, index) => {

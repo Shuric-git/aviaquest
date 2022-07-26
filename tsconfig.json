@@ -18,9 +18,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "exclude": ["**/*.test.ts"],
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"]
+    }
   },
   "include": [
-    "src", "src/custom.d.ts"
+    "src",
+    "src/**/*.ts/*.scss/*.tsx/*.js",
+    "@types/**/*.d.ts",
+    "node_modules/axios",
+    "node_modules/redux-thunk"
   ]
 }

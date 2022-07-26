@@ -1,26 +1,30 @@
-import './Sort.css';
 import { useState } from 'react';
 // import classNames from 'classnames/bind';
+import cx from 'classnames';
 
 import { useAppDispatch } from '../hooks';
 import { sortByPrice, sortByDuration } from '../features/actionCreators';
+
+import classes from './Sort.module.scss';
+
+console.log(classes);
 // import { store } from '../index';
 
 export const Sort = () => {
   const sortBtns = [
     {
       id: 'sortByPrice',
-      className: 'sort__btn active',
+      className: cx(classes['sort__btn'], classes['active']),
       name: 'САМЫЙ ДЕШЁВЫЙ',
     },
     {
       id: 'sortByDuration',
-      className: 'sort__btn',
+      className: classes['sort__btn'],
       name: 'САМЫЙ БЫСТРЫЙ',
     },
     {
       id: 'sortByOverall',
-      className: 'sort__btn',
+      className: classes['sort__btn'],
       name: 'ОПТИМАЛЬНЫЙ',
     },
   ];
@@ -40,9 +44,9 @@ export const Sort = () => {
   const sortTickets = (id: string) => {
     let sortedArr = sort.map((item) => {
       if (item.id === id) {
-        item.className = 'sort__btn active';
+        item.className = cx(classes['sort__btn'], classes['active']);
       } else {
-        item.className = 'sort__btn';
+        item.className = classes['sort__btn'];
       }
       return item;
     });
@@ -56,8 +60,8 @@ export const Sort = () => {
   };
 
   return (
-    <div className="sort">
-      <ul className="sort__list">
+    <div className={classes.sort}>
+      <ul className={classes['sort__list']}>
         {sort.map((item) => {
           return (
             <button key={item.id} className={item.className} onClick={() => sortTickets(item.id)}>

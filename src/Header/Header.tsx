@@ -1,6 +1,6 @@
 import Logo from '../assets/img/Logo.svg';
 
-import './Header.css';
+import './Header.scss';
 
 export const Header = () => {
   return (

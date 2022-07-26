@@ -1,4 +1,4 @@
-import './Ticket.css';
+import './Ticket.scss';
 
 export const Ticket = () => {
   return (
