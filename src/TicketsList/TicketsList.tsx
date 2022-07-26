@@ -17,8 +17,8 @@ export const TicketsList = () => {
   const [showedTicketsLimit, setShoewdTicketsLimit] = useState<number>(5);
   const { ticketsSortByPrice, ticketsSortByDuration, loadTickets, stopFetching } = ticketsSlice.actions;
   const { data: ticketsData } = ticketsAPI.useFetchAllTicketsQuery(
-    store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken,
-    { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
+    store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken
+    // { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
   );
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const TicketsList = () => {
     setShoewdTicketsLimit((prevState) => prevState + 5);
     dispatch(func());
   };
-  // console.log(store.getState().ticketsReducer);
+
   const limiter = (showedTicketsLimit: number) => {
     const limitedTickets = [...showedTickets];
     limitedTickets.length = showedTicketsLimit;

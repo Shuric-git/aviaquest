@@ -1,10 +1,10 @@
 import './Sort.css';
 import { useState } from 'react';
-import classNames from 'classnames/bind';
+// import classNames from 'classnames/bind';
 
 import { useAppDispatch } from '../hooks';
 import { sortByPrice, sortByDuration } from '../features/actionCreators';
-import { store } from '../index';
+// import { store } from '../index';
 
 export const Sort = () => {
   const sortBtns = [
@@ -29,10 +29,13 @@ export const Sort = () => {
 
   const dispatch = useAppDispatch();
 
-  let btnClass = classNames({
-    sort__btn: true,
-    active: store.getState().sortReducer['id'],
-  });
+  // const setActive = (id: string) => {
+  //   let btnClass = classNames({
+  //     sort__btn: true,
+  //     active: store.getState().sortReducer.sort[id],
+  //   });
+  //   return btnClass;
+  // };
 
   const sortTickets = (id: string) => {
     let sortedArr = sort.map((item) => {
@@ -57,7 +60,7 @@ export const Sort = () => {
       <ul className="sort__list">
         {sort.map((item) => {
           return (
-            <button key={item.id} className={btnClass} onClick={() => sortTickets(item.id)}>
+            <button key={item.id} className={item.className} onClick={() => sortTickets(item.id)}>
               {item.name}
             </button>
           );
