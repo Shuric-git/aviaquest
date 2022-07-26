@@ -7,4 +7,21 @@ interface ITicket {
   ];
 }
 
-export type { ITicket };
+interface ITicketState {
+  loadedTickets: [];
+  addedTickets: [];
+  showedTickets: [];
+  searchIdStore: string;
+  stopFetching: boolean;
+}
+
+interface ISortState {
+  sort: {
+    [key: string]: boolean;
+    sortByPrice: boolean;
+    sortByDuration: boolean;
+    sortByOverall: boolean;
+  };
+}
+
+export type { ITicket, ITicketState, ISortState };

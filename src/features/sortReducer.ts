@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: any = {
+import { ISortState } from '../interface';
+
+const initialState: ISortState = {
   sort: {
     sortByPrice: true,
     sortByDuration: false,

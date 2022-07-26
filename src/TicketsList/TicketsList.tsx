@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { skipToken } from '@reduxjs/toolkit/query';
+import cx from 'classnames';
 
 import { store } from '../index';
 import { useAppDispatch, useAppSelector } from '../hooks';
@@ -10,6 +11,7 @@ import { ticketsSlice } from '../features/ticketsReducer';
 import { ITicket } from '../interface';
 import { ticketsAPI } from '../ticketsDB/ticketsDB';
 
+// @ts-ignore
 import classes from './TicketsList.module.scss';
 
 export const TicketsList = () => {
@@ -21,6 +23,7 @@ export const TicketsList = () => {
     store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken
     // { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
   );
+  console.log(ticketsData);
 
   useEffect(() => {
     ticketsData && dispatch(loadTickets(ticketsData));
@@ -77,7 +80,9 @@ export const TicketsList = () => {
     }
   }
 
-  const antIcon = <LoadingOutlined className={classes.spinner} spin />;
+  const antIcon = (
+    <LoadingOutlined className={cx(classes['ant-spin-spinning'], classes['ant-spin'], classes['anticon'])} spin />
+  );
 
   const ticketsUI = limiter(showedTicketsLimit).map((item: ITicket) => {
     const _TO = item.segments[0];
@@ -100,7 +105,7 @@ export const TicketsList = () => {
       <div key={Date.now() + Math.random() * 1000000} className={classes.ticket}>
         <div className={classes['ticket__top']}>
           <span className={classes['ticket__top__price']}>{`${priceBeautyfier(item.price)} Р`}</span>
-          <div className={classes['ticket__top__logo']}></div>
+          <img src={`//pics.avs.io/99/36/${item.carrier}.png`} className={classes['ticket__top__logo']}></img>
         </div>
         <div className={classes['ticket__info']}>
           <div className={classes['ticket__info__chunk']}>
@@ -147,9 +152,9 @@ export const TicketsList = () => {
   });
   return (
     <>
-      <div className="TicketsList">
+      <div className={classes.TicketsList}>
         {showedTickets.length ? ticketsUI : <Spin indicator={antIcon} />}
-        <button className="showMore" onClick={showMoreHandler}>
+        <button className={classes.showMore} onClick={showMoreHandler}>
           Показать еще 5 билетов!
         </button>
       </div>

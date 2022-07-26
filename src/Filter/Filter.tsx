@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 
 import { filterItems } from '../utils/filterItems';
 import { checkboxesSlice } from '../features/checkboxesReducer';
-import './Filter.scss';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { func } from '../features/actionCreators';
+
+// @ts-ignore
+import classes from './Filter.module.scss';
 
 export const Filter = () => {
   const { checkboxes } = useAppSelector((state) => state.checkboxesReducer);
@@ -35,13 +37,13 @@ export const Filter = () => {
 
   return (
     <>
-      <div className="filter">
-        <span className="filter__title">КОЛИЧЕСТВО ПЕРЕСАДОК</span>
-        <ul className="filter__list">
+      <div className={classes.filter}>
+        <span className={classes['filter__title']}>КОЛИЧЕСТВО ПЕРЕСАДОК</span>
+        <ul className={classes['filter__list']}>
           {filterItems.map(({ name }, index) => {
             return (
               <li key={index}>
-                <div className="filter__checkboxWrapper">
+                <div className={classes['filter__checkboxWrapper']}>
                   <input
                     id={`custom-checkbox-${index}`}
                     type="checkbox"

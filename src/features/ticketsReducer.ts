@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: any = {
+import { ITicket, ITicketState } from '../interface';
+
+const initialState: ITicketState = {
   loadedTickets: [],
   addedTickets: [],
   showedTickets: [],
@@ -13,11 +15,11 @@ export const ticketsSlice = createSlice({
   name: 'ticketsArr',
   initialState,
   reducers: {
-    loadTickets: (state, action: PayloadAction<any>) => {
+    loadTickets: (state, action: PayloadAction<{ tickets: [] }>) => {
       state.loadedTickets.push(...action.payload.tickets);
     },
     ticketsSortByPrice(state) {
-      state.showedTickets.sort((a: any, b: any): number => {
+      state.showedTickets.sort((a: ITicket, b: ITicket): number => {
         if (a.price < b.price) {
           return -1;
         }
@@ -25,7 +27,7 @@ export const ticketsSlice = createSlice({
       });
     },
     ticketsSortByDuration(state) {
-      state.showedTickets.sort((a: any, b: any): number => {
+      state.showedTickets.sort((a: ITicket, b: ITicket): number => {
         if (a.segments[0].duration < b.segments[0].duration) {
           return -1;
         }
@@ -38,7 +40,9 @@ export const ticketsSlice = createSlice({
       if (forFilter) {
         action.payload.forEach((item: boolean, index) => {
           if (item) {
-            state.showedTickets.push(...forFilter.filter((item: any) => item.segments[0].stops.length === index - 1));
+            state.showedTickets.push(
+              ...forFilter.filter((item: ITicket) => item.segments[0].stops.length === index - 1)
+            );
           }
         });
       }

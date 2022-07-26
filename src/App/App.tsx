@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 
 import { Filter, Header, TicketsList, Sort } from '../router';
 import { useAppDispatch } from '../hooks';
-import './App.css';
 import { ticketsAPI } from '../ticketsDB/ticketsDB';
 import { ticketsSlice } from '../features/ticketsReducer';
+
+// @ts-ignore
+import classes from './App.module.scss';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -14,10 +16,10 @@ function App() {
     dispatch(setSearchId(searchId));
   }, [searchId]);
   return (
-    <div className="App">
+    <div className={classes.App}>
       <Header />
       <Filter />
-      <div className="rightSection">
+      <div className={classes.rightSection}>
         <Sort />
         <TicketsList />
       </div>

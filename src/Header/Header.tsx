@@ -1,10 +1,11 @@
 import Logo from '../assets/img/Logo.svg';
 
-import './Header.scss';
+// @ts-ignore
+import classes from './Header.module.scss';
 
 export const Header = () => {
   return (
-    <header className="header">
+    <header className={classes.header}>
       <img src={Logo} alt="логотип Aviasales" />
     </header>
   );

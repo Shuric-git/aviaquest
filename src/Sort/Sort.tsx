@@ -1,14 +1,11 @@
 import { useState } from 'react';
-// import classNames from 'classnames/bind';
 import cx from 'classnames';
 
 import { useAppDispatch } from '../hooks';
 import { sortByPrice, sortByDuration } from '../features/actionCreators';
 
+// @ts-ignore
 import classes from './Sort.module.scss';
-
-console.log(classes);
-// import { store } from '../index';
 
 export const Sort = () => {
   const sortBtns = [
