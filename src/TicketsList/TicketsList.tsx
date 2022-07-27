@@ -20,8 +20,8 @@ export const TicketsList = () => {
   const [showedTicketsLimit, setShoewdTicketsLimit] = useState<number>(5);
   const { ticketsSortByPrice, ticketsSortByDuration, loadTickets, stopFetching } = ticketsSlice.actions;
   const { data: ticketsData } = ticketsAPI.useFetchAllTicketsQuery(
-    store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken
-    // { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
+    store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken,
+    { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 3000 : 0 }
   );
 
   useEffect(() => {
@@ -79,29 +79,34 @@ export const TicketsList = () => {
     }
   }
 
-  const antIcon = (
-    <LoadingOutlined className={cx(classes['ant-spin-spinning'], classes['ant-spin'], classes['anticon'])} spin />
-  );
   const fetchIcon = (
     <LoadingOutlined className={cx(classes['ant-spin-spinning'], classes['ant-spin'], classes['anticon'])} spin />
   );
 
+  const timeBeautyfier = (time: number): string => {
+    const proxy = time.toString().split('');
+    if (proxy.length < 2) {
+      proxy.splice(0, 0, '0');
+    }
+    return proxy.join('');
+  };
+
   const ticketsUI = limiter(showedTicketsLimit).map((item: ITicket) => {
     const _TO = item.segments[0];
     const _FROM = item.segments[1];
-    const _TOStartHour = new Date(_TO.date).getHours();
-    const _TOStartMinutes = new Date(_TO.date).getMinutes();
+    const _TOStartHour = timeBeautyfier(new Date(_TO.date).getHours());
+    const _TOStartMinutes = timeBeautyfier(new Date(_TO.date).getMinutes());
     let _TOTime = new Date(_TO.date),
       _TODestinationTime = new Date(+_TOTime + _TO.duration * 6e4);
-    const _TODestinationHour = new Date(_TODestinationTime).getHours();
-    const _TODestinationMinutes = new Date(_TODestinationTime).getMinutes();
+    const _TODestinationHour = timeBeautyfier(new Date(_TODestinationTime).getHours());
+    const _TODestinationMinutes = timeBeautyfier(new Date(_TODestinationTime).getMinutes());
 
-    const _FROMStartHour = new Date(_FROM.date).getHours();
-    const _FROMStartMinutes = new Date(_FROM.date).getMinutes();
+    const _FROMStartHour = timeBeautyfier(new Date(_FROM.date).getHours());
+    const _FROMStartMinutes = timeBeautyfier(new Date(_FROM.date).getMinutes());
     let _FROMTime = new Date(_FROM.date),
       _FROMDestinationTime = new Date(+_FROMTime + _FROM.duration * 6e4);
-    const _FROMDestinationHour = new Date(_FROMDestinationTime).getHours();
-    const _FROMDestinationMinutes = new Date(_FROMDestinationTime).getMinutes();
+    const _FROMDestinationHour = timeBeautyfier(new Date(_FROMDestinationTime).getHours());
+    const _FROMDestinationMinutes = timeBeautyfier(new Date(_FROMDestinationTime).getMinutes());
 
     return (
       <div key={Date.now() + Math.random() * 1000000} className={classes.ticket}>
@@ -156,12 +161,15 @@ export const TicketsList = () => {
     <>
       <div className={classes.TicketsList}>
         {!store.getState().ticketsReducer.stopFetching && (
-          <div style={{ display: 'flex' }}>
+          <div className={classes['spinner-wrapper']}>
             <Spin indicator={fetchIcon} />
-            <span>Search</span>
+            <span> Подгружаем билеты</span>
           </div>
         )}
-        {showedTickets.length ? ticketsUI : <Spin indicator={antIcon} />}
+        {!store.getState().checkboxesReducer.checkboxes.includes(true) && (
+          <span className={classes['filter-warning']}>Рейсов, подходящих под заданные фильтры, не найдено</span>
+        )}
+        {showedTickets.length ? ticketsUI : null}
         <button className={classes.showMore} onClick={showMoreHandler}>
           Показать еще 5 билетов!
         </button>

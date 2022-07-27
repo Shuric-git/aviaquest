@@ -7,9 +7,10 @@ export const ticketsAPI = createApi({
   endpoints: (build) => ({
     fetchSearchId: build.query({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        //абсолютно не понимаю как типизировать этот any, перепробовал гору вариантов, ничто не подошло в полной мере.
         const getSearchId: any = await fetchWithBQ('/search');
         if (getSearchId.error) return { error: getSearchId.error };
-        const searchId: string | undefined = getSearchId.data.searchId;
+        const searchId = getSearchId.data.searchId;
         return searchId ? { data: searchId } : { error: getSearchId.error };
       },
     }),

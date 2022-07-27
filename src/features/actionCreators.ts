@@ -13,6 +13,10 @@ export const sortByDuration = (id: string) => (dispatch: AppDispatch) => {
   dispatch(sortSlice.actions.sortState(id));
   dispatch(ticketsSlice.actions.ticketsSortByDuration());
 };
+export const sortByOverall = (id: string) => (dispatch: AppDispatch) => {
+  dispatch(sortSlice.actions.sortState(id));
+  dispatch(ticketsSlice.actions.ticketsSortByOverall());
+};
 export const func = () => {
   return (dispatch: AppDispatch) => {
     const checkboxState = store.getState().checkboxesReducer.checkboxes;

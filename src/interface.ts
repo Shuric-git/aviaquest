@@ -9,7 +9,6 @@ interface ITicket {
 
 interface ITicketState {
   loadedTickets: [];
-  addedTickets: [];
   showedTickets: [];
   searchIdStore: string;
   stopFetching: boolean;

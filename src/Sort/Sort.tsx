@@ -2,7 +2,7 @@ import { useState } from 'react';
 import cx from 'classnames';
 
 import { useAppDispatch } from '../hooks';
-import { sortByPrice, sortByDuration } from '../features/actionCreators';
+import { sortByPrice, sortByDuration, sortByOverall } from '../features/actionCreators';
 
 // @ts-ignore
 import classes from './Sort.module.scss';
@@ -52,6 +52,9 @@ export const Sort = () => {
     }
     if (id === 'sortByDuration') {
       dispatch(sortByDuration(id));
+    }
+    if (id === 'sortByOverall') {
+      dispatch(sortByOverall(id));
     }
     setSort(sortedArr);
   };

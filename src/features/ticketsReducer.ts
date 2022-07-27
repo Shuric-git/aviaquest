@@ -5,7 +5,6 @@ import { ITicket, ITicketState } from '../interface';
 
 const initialState: ITicketState = {
   loadedTickets: [],
-  addedTickets: [],
   showedTickets: [],
   searchIdStore: '',
   stopFetching: false,
@@ -29,6 +28,14 @@ export const ticketsSlice = createSlice({
     ticketsSortByDuration(state) {
       state.showedTickets.sort((a: ITicket, b: ITicket): number => {
         if (a.segments[0].duration < b.segments[0].duration) {
+          return -1;
+        }
+        return 1;
+      });
+    },
+    ticketsSortByOverall(state) {
+      state.showedTickets.sort((a: ITicket, b: ITicket): number => {
+        if (a.segments[0].duration + a.segments[1].duration < b.segments[0].duration + b.segments[1].duration) {
           return -1;
         }
         return 1;

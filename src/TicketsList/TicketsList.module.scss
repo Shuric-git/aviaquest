@@ -29,13 +29,14 @@
   align-self: center;
   text-align: center;
   align-self: center;
-  font-size: 24px;
+  font-size: 14px;
+  margin-right: 10px;
   color: #2196F3;
 }
 
 .anticon svg {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
 }
 
 .ticket {
@@ -80,6 +81,16 @@
       font-weight: 600;
     }
   }
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-warning {
+  text-align: center;
 }
 
 
