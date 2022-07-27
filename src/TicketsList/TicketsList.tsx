@@ -23,7 +23,6 @@ export const TicketsList = () => {
     store.getState().ticketsReducer.searchIdStore ? store.getState().ticketsReducer.searchIdStore : skipToken
     // { pollingInterval: !store.getState().ticketsReducer.stopFetching ? 1000 : 0 }
   );
-  console.log(ticketsData);
 
   useEffect(() => {
     ticketsData && dispatch(loadTickets(ticketsData));
@@ -81,6 +80,9 @@ export const TicketsList = () => {
   }
 
   const antIcon = (
+    <LoadingOutlined className={cx(classes['ant-spin-spinning'], classes['ant-spin'], classes['anticon'])} spin />
+  );
+  const fetchIcon = (
     <LoadingOutlined className={cx(classes['ant-spin-spinning'], classes['ant-spin'], classes['anticon'])} spin />
   );
 
@@ -153,6 +155,12 @@ export const TicketsList = () => {
   return (
     <>
       <div className={classes.TicketsList}>
+        {!store.getState().ticketsReducer.stopFetching && (
+          <div style={{ display: 'flex' }}>
+            <Spin indicator={fetchIcon} />
+            <span>Search</span>
+          </div>
+        )}
         {showedTickets.length ? ticketsUI : <Spin indicator={antIcon} />}
         <button className={classes.showMore} onClick={showMoreHandler}>
           Показать еще 5 билетов!

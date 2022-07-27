@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import type { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
+// import type { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 
 export const ticketsAPI = createApi({
   reducerPath: 'ticketsAPI',
@@ -7,14 +7,9 @@ export const ticketsAPI = createApi({
   endpoints: (build) => ({
     fetchSearchId: build.query({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
-        const getSearchId: {
-          error: FetchBaseQueryError;
-          data: { searchId: string };
-          meta: FetchBaseQueryMeta;
-        } = await fetchWithBQ('/search');
-        console.log(getSearchId);
+        const getSearchId: any = await fetchWithBQ('/search');
         if (getSearchId.error) return { error: getSearchId.error };
-        const searchId = getSearchId.data.searchId;
+        const searchId: string | undefined = getSearchId.data.searchId;
         return searchId ? { data: searchId } : { error: getSearchId.error };
       },
     }),
