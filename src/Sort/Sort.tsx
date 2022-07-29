@@ -2,9 +2,8 @@ import { useState } from 'react';
 import cx from 'classnames';
 
 import { useAppDispatch } from '../hooks';
-import { sortByPrice, sortByDuration, sortByOverall } from '../features/actionCreators';
+import { sortByPrice, sortByDuration, sortByOverall } from '../features/filterSortReducer';
 
-// @ts-ignore
 import classes from './Sort.module.scss';
 
 export const Sort = () => {

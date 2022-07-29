@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-// import type { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 
 export const ticketsAPI = createApi({
   reducerPath: 'ticketsAPI',
@@ -7,7 +6,6 @@ export const ticketsAPI = createApi({
   endpoints: (build) => ({
     fetchSearchId: build.query({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
-        //абсолютно не понимаю как типизировать этот any, перепробовал гору вариантов, ничто не подошло в полной мере.
         const getSearchId: any = await fetchWithBQ('/search');
         if (getSearchId.error) return { error: getSearchId.error };
         const searchId = getSearchId.data.searchId;

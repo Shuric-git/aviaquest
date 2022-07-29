@@ -5,7 +5,6 @@ import { useAppDispatch } from '../hooks';
 import { ticketsAPI } from '../ticketsDB/ticketsDB';
 import { ticketsSlice } from '../features/ticketsReducer';
 
-// @ts-ignore
 import classes from './App.module.scss';
 
 function App() {

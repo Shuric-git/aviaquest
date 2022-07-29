@@ -1,6 +1,5 @@
-import Logo from '../assets/img/Logo.svg';
+import Logo from '../assets/Logo.svg';
 
-// @ts-ignore
 import classes from './Header.module.scss';
 
 export const Header = () => {

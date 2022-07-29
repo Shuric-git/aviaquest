@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 
-import { filterItems } from '../utils/filterItems';
-import { checkboxesSlice } from '../features/checkboxesReducer';
+import { filterItems } from '../model/filterItems';
+import { checkboxesSlice } from '../features/filterSortReducer';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { func } from '../features/actionCreators';
+import { filterTickets } from '../features/filterSortReducer';
 
-// @ts-ignore
 import classes from './Filter.module.scss';
 
 export const Filter = () => {
@@ -21,7 +20,7 @@ export const Filter = () => {
     if (checky.includes(false)) {
       dispatch(autoUncheck());
     }
-    dispatch(func());
+    dispatch(filterTickets());
   });
   const toggleCheck: (index: number) => void = (index) => {
     if (index === 0 && checkboxes[0]) {
