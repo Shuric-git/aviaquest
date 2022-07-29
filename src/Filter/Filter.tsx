@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
 import { filterItems } from '../model/filterItems';
-import { checkboxesSlice } from '../features/filterSortReducer';
+import { checkboxesSlice, filterTickets } from '../features/filterSortReducer';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { filterTickets } from '../features/filterSortReducer';
 
 import classes from './Filter.module.scss';
 

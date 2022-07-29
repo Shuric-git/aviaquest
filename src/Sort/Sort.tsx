@@ -29,14 +29,6 @@ export const Sort = () => {
 
   const dispatch = useAppDispatch();
 
-  // const setActive = (id: string) => {
-  //   let btnClass = classNames({
-  //     sort__btn: true,
-  //     active: store.getState().sortReducer.sort[id],
-  //   });
-  //   return btnClass;
-  // };
-
   const sortTickets = (id: string) => {
     let sortedArr = sort.map((item) => {
       if (item.id === id) {

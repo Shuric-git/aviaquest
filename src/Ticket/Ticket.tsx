@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import add from 'date-fns/add';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ITicket } from '../interface';
 import classes from '../TicketsList/TicketsList.module.scss';
@@ -64,7 +65,7 @@ export const Ticket: FC<{ showedTicketsLimit: number; showedTickets: ITicket[] }
         const _FROMDestinationMinutes = timeBeautyfier(getMinutes(_FROMDestinationTime));
 
         return (
-          <div key={Date.now() + Math.random() * 1000000} className={classes.ticket}>
+          <div key={uuidv4()} className={classes.ticket}>
             <div className={classes['ticket__top']}>
               <span className={classes['ticket__top__price']}>{`${priceBeautyfier(item.price)} Р`}</span>
               <img src={`//pics.avs.io/99/36/${item.carrier}.png`} className={classes['ticket__top__logo']}></img>

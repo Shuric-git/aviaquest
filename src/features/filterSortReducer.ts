@@ -64,9 +64,6 @@ export const sortSlice = createSlice({
   },
 });
 
-// import { ticketsSlice } from './ticketsReducer';
-// import { sortSlice } from './filterSortReducer';
-
 export const sortByPrice = (id: string) => (dispatch: AppDispatch) => {
   dispatch(sortSlice.actions.sortState(id));
   dispatch(ticketsSlice.actions.ticketsSortByPrice());
